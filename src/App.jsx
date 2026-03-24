@@ -16,8 +16,8 @@ const css = `
   .header{display:flex;align-items:center;justify-content:space-between;padding:1.5rem 0;border-bottom:1px solid ${C.border};margin-bottom:2rem;}
   .logo{font-family:'Syne',sans-serif;font-size:1.4rem;font-weight:700;color:${C.accent};letter-spacing:-0.02em;cursor:pointer;}
   .logo span{color:${C.text};}
-  .nav{display:flex;gap:8px;}
-  .nav-btn{background:transparent;border:1px solid ${C.border};color:${C.muted};padding:8px 16px;border-radius:100px;cursor:pointer;font-size:0.85rem;font-family:'DM Sans',sans-serif;transition:all 0.2s;}
+  .nav{display:flex;gap:8px;flex-wrap:wrap;}
+  .nav-btn{background:transparent;border:1px solid ${C.border};color:${C.muted};padding:8px 14px;border-radius:100px;cursor:pointer;font-size:0.82rem;font-family:'DM Sans',sans-serif;transition:all 0.2s;}
   .nav-btn:hover{border-color:${C.accent};color:${C.accent};}
   .nav-btn.active{background:${C.accent};border-color:${C.accent};color:${C.bg};font-weight:500;}
 
@@ -61,7 +61,6 @@ const css = `
   .cam-flip{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);color:#fff;border-radius:50%;width:44px;height:44px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background 0.2s;}
   .cam-flip:hover{background:rgba(255,255,255,0.22);}
   .cam-error{background:${C.surface};border:1px solid #ff6b6b44;border-radius:16px;padding:2.5rem;text-align:center;color:${C.muted};}
-  .cam-error .ce-icon{font-size:2.5rem;display:block;margin-bottom:1rem;}
 
   .upload-zone{border:2px dashed ${C.border};border-radius:16px;padding:3rem 2rem;text-align:center;cursor:pointer;transition:all 0.2s;background:${C.surface};}
   .upload-zone:hover,.upload-zone.drag{border-color:${C.accent};background:${C.card};}
@@ -84,7 +83,7 @@ const css = `
   .actions-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:1rem;}
 
   .result-card{background:${C.surface};border:1px solid ${C.border};border-radius:16px;padding:1.5rem;margin-top:1.2rem;}
-  .result-card h3{font-family:'Syne',sans-serif;font-size:1rem;color:${C.accent};margin-bottom:1rem;display:flex;align-items:center;gap:8px;}
+  .result-card h3{font-family:'Syne',sans-serif;font-size:1rem;color:${C.accent};margin-bottom:1rem;}
   .food-item{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid ${C.border};}
   .food-item:last-child{border-bottom:none;}
   .fname{font-size:0.95rem;}
@@ -99,6 +98,28 @@ const css = `
   .mval{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:600;}
   .mlbl{font-size:0.72rem;color:${C.muted};margin-top:2px;}
 
+  /* HISTORY */
+  .history-day{margin-bottom:1.5rem;}
+  .history-day-label{font-family:'Syne',sans-serif;font-size:0.82rem;color:${C.accent};text-transform:uppercase;letter-spacing:0.08em;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;}
+  .history-day-cal{font-size:0.85rem;color:${C.muted};font-family:'DM Sans',sans-serif;text-transform:none;letter-spacing:0;}
+  .history-item{background:${C.surface};border:1px solid ${C.border};border-radius:14px;padding:1rem 1.2rem;margin-bottom:8px;display:flex;gap:1rem;align-items:center;}
+  .history-thumb{width:56px;height:56px;border-radius:10px;object-fit:cover;flex-shrink:0;border:1px solid ${C.border};}
+  .history-thumb-placeholder{width:56px;height:56px;border-radius:10px;background:${C.card};flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:1.4rem;border:1px solid ${C.border};}
+  .history-info{flex:1;min-width:0;}
+  .history-name{font-family:'Syne',sans-serif;font-size:0.95rem;font-weight:600;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .history-meta{font-size:0.78rem;color:${C.muted};}
+  .history-cal{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;color:${C.accent};flex-shrink:0;}
+  .history-delete{background:transparent;border:none;cursor:pointer;color:${C.muted};font-size:1rem;padding:4px;transition:color 0.2s;flex-shrink:0;}
+  .history-delete:hover{color:${C.danger};}
+  .empty-history{text-align:center;padding:3rem 1rem;color:${C.muted};}
+  .empty-history .eh-icon{font-size:2.5rem;display:block;margin-bottom:1rem;}
+
+  .daily-summary{background:${C.card};border-radius:12px;padding:1rem 1.2rem;margin-bottom:1.5rem;display:grid;grid-template-columns:repeat(4,1fr);gap:8px;}
+  .ds-box{text-align:center;}
+  .ds-val{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;color:${C.accent};}
+  .ds-lbl{font-size:0.7rem;color:${C.muted};margin-top:2px;}
+
+  /* PLANNER */
   .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;}
   .form-group{display:flex;flex-direction:column;gap:6px;}
   .form-group.full{grid-column:1/-1;}
@@ -121,27 +142,36 @@ const css = `
   .spinner{width:20px;height:20px;border:2px solid ${C.border};border-top-color:${C.accent};border-radius:50%;animation:spin 0.8s linear infinite;flex-shrink:0;}
   @keyframes spin{to{transform:rotate(360deg);}}
   .error-box{background:#ff6b6b11;border:1px solid #ff6b6b44;border-radius:12px;padding:1rem 1.25rem;color:${C.danger};font-size:0.9rem;margin-top:1rem;}
+  .success-box{background:${C.accentDim}18;border:1px solid ${C.accentDim}44;border-radius:12px;padding:1rem 1.25rem;color:${C.accent};font-size:0.9rem;margin-top:1rem;}
 
   @media(max-width:600px){
     .cards-grid,.source-grid{grid-template-columns:1fr;}
     .form-grid{grid-template-columns:1fr;}
-    .stats-row{grid-template-columns:repeat(2,1fr);}
+    .stats-row,.daily-summary{grid-template-columns:repeat(2,1fr);}
     .actions-row{flex-direction:column;}
     .actions-row .btn{width:100%;justify-content:center;}
   }
 `;
 
-// ── helpers ───────────────────────────────────────────────────────────────────
+// ── API helper (usa proxy en /api/claude) ─────────────────────────────────────
 
 async function callClaude(messages, system = "") {
-  const res = await fetch("https://api.anthropic.com/v1/messages", {
+  const res = await fetch("/api/claude", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ model: "claude-sonnet-4-20250514", max_tokens: 1000, system, messages }),
+    body: JSON.stringify({
+      model: "claude-sonnet-4-20250514",
+      max_tokens: 1000,
+      system,
+      messages,
+    }),
   });
-  if (!res.ok) throw new Error(`API error ${res.status}`);
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({}));
+    throw new Error(err.error?.message || `Error ${res.status}`);
+  }
   const data = await res.json();
-  return data.content.find((b) => b.type === "text")?.text || "";
+  return data.content?.find((b) => b.type === "text")?.text || "";
 }
 
 function parseJSON(text) {
@@ -151,21 +181,63 @@ function parseJSON(text) {
   } catch { return null; }
 }
 
-// ── icons ─────────────────────────────────────────────────────────────────────
+// ── Historia de comidas (localStorage) ───────────────────────────────────────
+
+const HISTORY_KEY = "nutriai_history";
+
+function loadHistory() {
+  try { return JSON.parse(localStorage.getItem(HISTORY_KEY)) || []; }
+  catch { return []; }
+}
+
+function saveHistory(h) {
+  localStorage.setItem(HISTORY_KEY, JSON.stringify(h));
+}
+
+function addMealToHistory(meal) {
+  const h = loadHistory();
+  h.unshift(meal);
+  if (h.length > 100) h.pop();
+  saveHistory(h);
+}
+
+function deleteMealFromHistory(id) {
+  saveHistory(loadHistory().filter((m) => m.id !== id));
+}
+
+function formatDate(iso) {
+  const d = new Date(iso);
+  const today = new Date();
+  const yesterday = new Date(); yesterday.setDate(yesterday.getDate() - 1);
+  if (d.toDateString() === today.toDateString()) return "Hoy";
+  if (d.toDateString() === yesterday.toDateString()) return "Ayer";
+  return d.toLocaleDateString("es-ES", { weekday: "long", day: "numeric", month: "long" });
+}
+
+function groupByDay(history) {
+  const groups = {};
+  history.forEach((m) => {
+    const key = new Date(m.date).toDateString();
+    if (!groups[key]) groups[key] = { label: formatDate(m.date), meals: [], total: 0 };
+    groups[key].meals.push(m);
+    groups[key].total += m.calorias;
+  });
+  return Object.values(groups);
+}
+
+// ── Icons ─────────────────────────────────────────────────────────────────────
 
 const IcoBack = () => (
   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
     <polyline points="15 18 9 12 15 6"/>
   </svg>
 );
-
-const IcoCamShutter = () => (
+const IcoCam = () => (
   <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
     <circle cx="12" cy="13" r="4"/>
   </svg>
 );
-
 const IcoFlip = () => (
   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <path d="M1 4v6h6"/><path d="M23 20v-6h-6"/>
@@ -173,46 +245,18 @@ const IcoFlip = () => (
   </svg>
 );
 
-// ── Breadcrumb ────────────────────────────────────────────────────────────────
-
-function Breadcrumb({ steps, current }) {
-  return (
-    <div className="breadcrumb">
-      {steps.map((s, i) => {
-        const idx = steps.findIndex((x) => x.key === current);
-        const mine = steps.findIndex((x) => x.key === s.key);
-        const state = mine === idx ? "active" : mine < idx ? "done" : "";
-        return (
-          <span key={s.key} style={{ display: "flex", alignItems: "center", gap: 6 }}>
-            {i > 0 && <span className="sep">›</span>}
-            <span className={`crumb ${state}`}>{s.label}</span>
-          </span>
-        );
-      })}
-    </div>
-  );
-}
-
 // ── FOOD ANALYZER ─────────────────────────────────────────────────────────────
-// steps: pick → camera | upload → preview → result
 
-const ANA_STEPS = [
-  { key: "pick", label: "Método" },
-  { key: "preview", label: "Confirmar" },
-  { key: "result", label: "Resultado" },
-];
-
-function FoodAnalyzer({ onBack }) {
+function FoodAnalyzer({ onBack, onMealSaved }) {
   const [step, setStep] = useState("pick");
   const [imageData, setImageData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState(null);
   const [error, setError] = useState(null);
+  const [saved, setSaved] = useState(false);
 
-  // camera
   const videoRef = useRef();
   const streamRef = useRef(null);
-  const canvasRef = useRef();
   const [camError, setCamError] = useState(null);
   const [facingMode, setFacingMode] = useState("environment");
 
@@ -220,18 +264,15 @@ function FoodAnalyzer({ onBack }) {
     if (streamRef.current) streamRef.current.getTracks().forEach((t) => t.stop());
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: { ideal: facing }, width: { ideal: 1280 } },
-        audio: false,
+        video: { facingMode: { ideal: facing }, width: { ideal: 1280 } }, audio: false,
       });
       streamRef.current = stream;
-      if (videoRef.current) { videoRef.current.srcObject = stream; }
+      if (videoRef.current) videoRef.current.srcObject = stream;
       setCamError(null);
     } catch (e) {
-      setCamError(
-        e.name === "NotAllowedError"
-          ? "Permiso de cámara denegado. Actívalo en los ajustes del navegador."
-          : "No se pudo acceder a la cámara en este dispositivo."
-      );
+      setCamError(e.name === "NotAllowedError"
+        ? "Permiso de cámara denegado. Actívalo en los ajustes del navegador."
+        : "No se pudo acceder a la cámara.");
     }
   };
 
@@ -247,8 +288,7 @@ function FoodAnalyzer({ onBack }) {
 
   const flipCam = () => {
     const next = facingMode === "environment" ? "user" : "environment";
-    setFacingMode(next);
-    startCam(next);
+    setFacingMode(next); startCam(next);
   };
 
   const capture = () => {
@@ -259,26 +299,21 @@ function FoodAnalyzer({ onBack }) {
     c.getContext("2d").drawImage(v, 0, 0);
     const dataURL = c.toDataURL("image/jpeg", 0.92);
     setImageData({ src: dataURL, base64: dataURL.split(",")[1], mediaType: "image/jpeg", source: "camera" });
-    setError(null);
-    setStep("preview");
+    setError(null); setSaved(false); setStep("preview");
   };
 
-  // upload
   const fileInputRef = useRef();
   const [drag, setDrag] = useState(false);
-
   const handleFile = (file) => {
     if (!file || !file.type.startsWith("image/")) return;
     const reader = new FileReader();
     reader.onload = (e) => {
       setImageData({ src: e.target.result, base64: e.target.result.split(",")[1], mediaType: file.type, source: "upload" });
-      setError(null);
-      setStep("preview");
+      setError(null); setSaved(false); setStep("preview");
     };
     reader.readAsDataURL(file);
   };
 
-  // analyze
   const analyze = async () => {
     setLoading(true); setError(null);
     try {
@@ -286,21 +321,37 @@ function FoodAnalyzer({ onBack }) {
         role: "user",
         content: [
           { type: "image", source: { type: "base64", media_type: imageData.mediaType, data: imageData.base64 } },
-          { type: "text", text: `Analiza esta imagen de comida. Devuelve ÚNICAMENTE JSON válido con esta estructura:
-{"plato":"nombre descriptivo","alimentos":[{"nombre":"...","cantidad":"...","calorias":número}],"macros":{"proteinas":número,"carbohidratos":número,"grasas":número},"total_calorias":número,"consejo":"breve consejo nutricional max 2 frases"}` }
+          { type: "text", text: `Analiza esta imagen de comida con precisión. Devuelve ÚNICAMENTE JSON válido:
+{"plato":"nombre descriptivo del plato","alimentos":[{"nombre":"nombre del alimento","cantidad":"cantidad en gramos o unidades","calorias":número entero}],"macros":{"proteinas":número,"carbohidratos":número,"grasas":número},"total_calorias":número entero,"consejo":"consejo nutricional breve de máximo 2 frases"}
+Si no hay comida en la imagen devuelve {"error":"No se detecta comida en la imagen"}.` }
         ],
-      }], "Eres un nutricionista experto. Analizas imágenes de comida estimando cantidades y valores nutricionales realistas.");
+      }], "Eres un nutricionista experto con conocimiento detallado de alimentos españoles y mediterráneos. Estimas cantidades visuales con precisión y calculas valores nutricionales realistas.");
       const parsed = parseJSON(text);
       if (!parsed) throw new Error("No se pudo interpretar la respuesta. Prueba con otra foto más clara.");
+      if (parsed.error) throw new Error(parsed.error);
       setResult(parsed);
       setStep("result");
     } catch (e) { setError(e.message); }
     finally { setLoading(false); }
   };
 
-  const reset = () => { setImageData(null); setResult(null); setError(null); setStep("pick"); };
+  const saveMeal = () => {
+    if (!result || saved) return;
+    addMealToHistory({
+      id: Date.now().toString(),
+      date: new Date().toISOString(),
+      plato: result.plato,
+      calorias: result.total_calorias,
+      macros: result.macros,
+      alimentos: result.alimentos,
+      thumbnail: imageData.src,
+    });
+    setSaved(true);
+    if (onMealSaved) onMealSaved();
+  };
 
-  // back logic
+  const reset = () => { setImageData(null); setResult(null); setError(null); setSaved(false); setStep("pick"); };
+
   const goBack = () => {
     if (step === "result") { setStep("preview"); return; }
     if (step === "preview") { setStep(imageData?.source === "camera" ? "camera" : "upload"); return; }
@@ -308,40 +359,49 @@ function FoodAnalyzer({ onBack }) {
     onBack();
   };
 
-  const backLabel = step === "pick" ? "Inicio" : step === "result" ? "Ver foto" : "Atrás";
+  const ANA_STEPS = [{ key: "pick", label: "Método" }, { key: "preview", label: "Confirmar" }, { key: "result", label: "Resultado" }];
+  const currentStep = step === "camera" || step === "upload" ? "pick" : step;
 
   return (
     <div>
       <div className="topbar">
-        <button className="back-btn" onClick={goBack}><IcoBack /> {backLabel}</button>
-        <Breadcrumb steps={ANA_STEPS} current={step === "camera" || step === "upload" ? "pick" : step} />
+        <button className="back-btn" onClick={goBack}><IcoBack /> {step === "pick" ? "Inicio" : "Atrás"}</button>
+        <div className="breadcrumb">
+          {ANA_STEPS.map((s, i) => {
+            const idx = ANA_STEPS.findIndex(x => x.key === currentStep);
+            const mine = ANA_STEPS.findIndex(x => x.key === s.key);
+            const state = mine === idx ? "active" : mine < idx ? "done" : "";
+            return (
+              <span key={s.key} style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                {i > 0 && <span className="sep">›</span>}
+                <span className={`crumb ${state}`}>{s.label}</span>
+              </span>
+            );
+          })}
+        </div>
       </div>
 
       <div className="page-title">Analizador de comida</div>
       <div className="page-subtitle">Fotografía tu plato o sube una imagen — la IA calculará las calorías.</div>
 
-      {/* PICK */}
       {step === "pick" && (
         <div className="source-grid">
           <div className="source-card" onClick={() => setStep("camera")}>
-            <span className="sc-icon">📷</span>
-            <h3>Usar cámara</h3>
-            <p>Fotografía tu plato en el momento para un análisis más preciso y rápido.</p>
+            <span className="sc-icon">📷</span><h3>Usar cámara</h3>
+            <p>Fotografía tu plato en el momento para un análisis más preciso.</p>
           </div>
           <div className="source-card" onClick={() => setStep("upload")}>
-            <span className="sc-icon">🖼</span>
-            <h3>Subir imagen</h3>
+            <span className="sc-icon">🖼</span><h3>Subir imagen</h3>
             <p>Elige una foto guardada en tu galería o dispositivo.</p>
           </div>
         </div>
       )}
 
-      {/* CAMERA */}
       {step === "camera" && (
         <div>
           {camError ? (
             <div className="cam-error">
-              <span className="ce-icon">📵</span>
+              <span style={{ fontSize: "2.5rem", display: "block", marginBottom: "1rem" }}>📵</span>
               <p style={{ marginBottom: "1.2rem", lineHeight: 1.6 }}>{camError}</p>
               <div className="actions-row" style={{ justifyContent: "center" }}>
                 <button className="btn btn-secondary" onClick={() => setStep("upload")}>Subir foto en su lugar</button>
@@ -349,21 +409,11 @@ function FoodAnalyzer({ onBack }) {
             </div>
           ) : (
             <div className="cam-wrap">
-              <video
-                ref={videoRef}
-                autoPlay
-                playsInline
-                muted
-                style={{ transform: facingMode === "user" ? "scaleX(-1)" : "none" }}
-              />
+              <video ref={videoRef} autoPlay playsInline muted style={{ transform: facingMode === "user" ? "scaleX(-1)" : "none" }} />
               <div className="cam-overlay">
                 <div style={{ width: 44 }} />
-                <button className="cam-shutter" onClick={capture} title="Hacer foto">
-                  <IcoCamShutter />
-                </button>
-                <button className="cam-flip" onClick={flipCam} title="Voltear cámara">
-                  <IcoFlip />
-                </button>
+                <button className="cam-shutter" onClick={capture}><IcoCam /></button>
+                <button className="cam-flip" onClick={flipCam}><IcoFlip /></button>
               </div>
             </div>
           )}
@@ -373,7 +423,6 @@ function FoodAnalyzer({ onBack }) {
         </div>
       )}
 
-      {/* UPLOAD */}
       {step === "upload" && (
         <div>
           <div
@@ -391,18 +440,13 @@ function FoodAnalyzer({ onBack }) {
         </div>
       )}
 
-      {/* PREVIEW */}
       {step === "preview" && imageData && (
         <div>
           <div className="preview-wrap">
             <img src={imageData.src} alt="Tu plato" />
-            <span className="preview-badge">
-              {imageData.source === "camera" ? "📷 Foto tomada" : "🖼 Imagen subida"}
-            </span>
+            <span className="preview-badge">{imageData.source === "camera" ? "📷 Foto tomada" : "🖼 Imagen subida"}</span>
           </div>
-
           {error && <div className="error-box">⚠ {error}</div>}
-
           {loading
             ? <div className="loading"><div className="spinner" /><span>Analizando tu plato con IA…</span></div>
             : (
@@ -418,7 +462,6 @@ function FoodAnalyzer({ onBack }) {
         </div>
       )}
 
-      {/* RESULT */}
       {step === "result" && result && (
         <div>
           <div className="actions-row" style={{ marginBottom: "0.5rem" }}>
@@ -426,21 +469,25 @@ function FoodAnalyzer({ onBack }) {
             <button className="btn btn-secondary" onClick={reset}>Analizar otro plato</button>
           </div>
 
+          {saved
+            ? <div className="success-box">✅ Comida guardada en tu historial</div>
+            : (
+              <div style={{ background: C.card, border: `1px solid ${C.accentDim}44`, borderRadius: 12, padding: "0.9rem 1.2rem", marginTop: "0.8rem", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                <span style={{ fontSize: "0.88rem", color: C.muted }}>¿Guardar esta comida en tu historial?</span>
+                <button className="btn btn-primary" style={{ padding: "8px 18px", fontSize: "0.83rem" }} onClick={saveMeal}>💾 Guardar</button>
+              </div>
+            )
+          }
+
           <div className="result-card">
             <h3>🍽 {result.plato}</h3>
             {result.alimentos?.map((a, i) => (
               <div key={i} className="food-item">
                 <span className="fname">{a.nombre}</span>
-                <div className="fdetails">
-                  <span className="fqty">{a.cantidad}</span>
-                  <span className="fcal">{Math.round(a.calorias)} kcal</span>
-                </div>
+                <div className="fdetails"><span className="fqty">{a.cantidad}</span><span className="fcal">{Math.round(a.calorias)} kcal</span></div>
               </div>
             ))}
-            <div className="total-row">
-              <span className="tlabel">Total calorías</span>
-              <span className="tvalue">{Math.round(result.total_calorias)} kcal</span>
-            </div>
+            <div className="total-row"><span className="tlabel">Total calorías</span><span className="tvalue">{Math.round(result.total_calorias)} kcal</span></div>
           </div>
 
           <div className="result-card">
@@ -458,6 +505,89 @@ function FoodAnalyzer({ onBack }) {
               <p style={{ color: C.muted, fontSize: "0.92rem", lineHeight: 1.7 }}>{result.consejo}</p>
             </div>
           )}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// ── HISTORIAL ─────────────────────────────────────────────────────────────────
+
+function HistoryPage({ onBack, refreshKey }) {
+  const [history, setHistory] = useState([]);
+
+  useEffect(() => { setHistory(loadHistory()); }, [refreshKey]);
+
+  const handleDelete = (id) => {
+    deleteMealFromHistory(id);
+    setHistory(loadHistory());
+  };
+
+  const today = new Date().toDateString();
+  const todayMeals = history.filter((m) => new Date(m.date).toDateString() === today);
+  const todayCals = todayMeals.reduce((s, m) => s + m.calorias, 0);
+  const todayProteinas = todayMeals.reduce((s, m) => s + (m.macros?.proteinas || 0), 0);
+  const todayCarbs = todayMeals.reduce((s, m) => s + (m.macros?.carbohidratos || 0), 0);
+  const todayGrasas = todayMeals.reduce((s, m) => s + (m.macros?.grasas || 0), 0);
+
+  const groups = groupByDay(history);
+
+  return (
+    <div>
+      <div className="topbar">
+        <button className="back-btn" onClick={onBack}><IcoBack /> Inicio</button>
+      </div>
+      <div className="page-title">Historial de comidas</div>
+      <div className="page-subtitle">Registro de todo lo que has analizado.</div>
+
+      {history.length > 0 && (
+        <div className="daily-summary">
+          <div className="ds-box"><div className="ds-val">{Math.round(todayCals)}</div><div className="ds-lbl">kcal hoy</div></div>
+          <div className="ds-box"><div className="ds-val">{Math.round(todayProteinas)}g</div><div className="ds-lbl">Proteínas</div></div>
+          <div className="ds-box"><div className="ds-val">{Math.round(todayCarbs)}g</div><div className="ds-lbl">Carbohidratos</div></div>
+          <div className="ds-box"><div className="ds-val">{Math.round(todayGrasas)}g</div><div className="ds-lbl">Grasas</div></div>
+        </div>
+      )}
+
+      {history.length === 0 ? (
+        <div className="empty-history">
+          <span className="eh-icon">🍽</span>
+          <p style={{ marginBottom: "0.5rem", fontFamily: "'Syne', sans-serif", fontSize: "1rem" }}>Aún no has guardado ninguna comida</p>
+          <p style={{ fontSize: "0.85rem" }}>Analiza un plato y pulsa "Guardar" para verlo aquí.</p>
+        </div>
+      ) : (
+        <div>
+          {groups.map((group, gi) => (
+            <div key={gi} className="history-day">
+              <div className="history-day-label">
+                <span>{group.label}</span>
+                <span className="history-day-cal">{Math.round(group.total)} kcal totales</span>
+              </div>
+              {group.meals.map((meal) => (
+                <div key={meal.id} className="history-item">
+                  {meal.thumbnail
+                    ? <img src={meal.thumbnail} className="history-thumb" alt={meal.plato} />
+                    : <div className="history-thumb-placeholder">🍽</div>
+                  }
+                  <div className="history-info">
+                    <div className="history-name">{meal.plato}</div>
+                    <div className="history-meta">
+                      {new Date(meal.date).toLocaleTimeString("es-ES", { hour: "2-digit", minute: "2-digit" })}
+                      {meal.alimentos?.length > 0 && ` · ${meal.alimentos.map(a => a.nombre).slice(0, 2).join(", ")}${meal.alimentos.length > 2 ? "…" : ""}`}
+                    </div>
+                  </div>
+                  <div className="history-cal">{Math.round(meal.calorias)}<span style={{ fontSize: "0.7rem", color: C.muted }}> kcal</span></div>
+                  <button className="history-delete" onClick={() => handleDelete(meal.id)} title="Eliminar">✕</button>
+                </div>
+              ))}
+            </div>
+          ))}
+
+          <div style={{ textAlign: "center", marginTop: "1.5rem" }}>
+            <button className="btn btn-danger" onClick={() => { if (confirm("¿Borrar todo el historial?")) { saveHistory([]); setHistory([]); } }}>
+              Borrar todo el historial
+            </button>
+          </div>
         </div>
       )}
     </div>
@@ -517,13 +647,10 @@ Devuelve ÚNICAMENTE JSON:
         </button>
         {result && (
           <div className="breadcrumb">
-            <span className="crumb done">Perfil</span>
-            <span className="sep">›</span>
-            <span className="crumb active">Tu plan</span>
+            <span className="crumb done">Perfil</span><span className="sep">›</span><span className="crumb active">Tu plan</span>
           </div>
         )}
       </div>
-
       <div className="page-title">Plan personalizado</div>
       <div className="page-subtitle">Rellena tu perfil y genera dieta + rutina de ejercicio con IA.</div>
 
@@ -605,24 +732,44 @@ Devuelve ÚNICAMENTE JSON:
 // ── HOME ──────────────────────────────────────────────────────────────────────
 
 function HomePage({ setPage }) {
+  const history = loadHistory();
+  const today = new Date().toDateString();
+  const todayCals = history.filter(m => new Date(m.date).toDateString() === today).reduce((s,m) => s + m.calorias, 0);
+
   return (
     <div>
       <div className="hero">
         <h1>Tu nutrición,<br /><em>inteligente</em> desde una foto.</h1>
         <p>Analiza tus comidas con IA, cuenta calorías automáticamente y recibe una dieta y rutina personalizada.</p>
       </div>
+
+      {todayCals > 0 && (
+        <div onClick={() => setPage("history")} style={{ background: C.surface, border: `1px solid ${C.border}`, borderRadius: 14, padding: "1rem 1.2rem", marginBottom: "1.2rem", cursor: "pointer", display: "flex", justifyContent: "space-between", alignItems: "center", transition: "border-color 0.2s" }}
+          onMouseEnter={e => e.currentTarget.style.borderColor = C.accentDim}
+          onMouseLeave={e => e.currentTarget.style.borderColor = C.border}>
+          <div>
+            <div style={{ fontSize: "0.78rem", color: C.muted, marginBottom: "3px" }}>Calorías de hoy</div>
+            <div style={{ fontFamily: "'Syne', sans-serif", fontSize: "1.4rem", fontWeight: 700, color: C.accent }}>{Math.round(todayCals)} kcal</div>
+          </div>
+          <div style={{ color: C.muted, fontSize: "0.82rem" }}>Ver historial →</div>
+        </div>
+      )}
+
       <div className="cards-grid">
         <div className="feature-card" onClick={()=>setPage("analyzer")}>
-          <span className="tag">IA Vision</span>
-          <span className="icon">📸</span>
+          <span className="tag">IA Vision</span><span className="icon">📸</span>
           <h3>Analizar comida</h3>
           <p>Usa la cámara o sube una foto para identificar alimentos, cantidades y calorías.</p>
         </div>
         <div className="feature-card" onClick={()=>setPage("planner")}>
-          <span className="tag">Personalizado</span>
-          <span className="icon">🥗</span>
+          <span className="tag">Personalizado</span><span className="icon">🥗</span>
           <h3>Dieta & Ejercicio</h3>
           <p>Rellena tu perfil y genera un plan nutricional y de entrenamiento a tu medida.</p>
+        </div>
+        <div className="feature-card" onClick={()=>setPage("history")}>
+          <span className="tag">Memoria</span><span className="icon">📅</span>
+          <h3>Historial</h3>
+          <p>Revisa todas tus comidas anteriores y el seguimiento calórico por día.</p>
         </div>
       </div>
     </div>
@@ -633,6 +780,8 @@ function HomePage({ setPage }) {
 
 export default function App() {
   const [page, setPage] = useState("home");
+  const [historyRefresh, setHistoryRefresh] = useState(0);
+
   return (
     <>
       <style>{css}</style>
@@ -642,12 +791,14 @@ export default function App() {
           <nav className="nav">
             <button className={`nav-btn${page==="home"?" active":""}`} onClick={()=>setPage("home")}>Inicio</button>
             <button className={`nav-btn${page==="analyzer"?" active":""}`} onClick={()=>setPage("analyzer")}>Analizar</button>
+            <button className={`nav-btn${page==="history"?" active":""}`} onClick={()=>setPage("history")}>Historial</button>
             <button className={`nav-btn${page==="planner"?" active":""}`} onClick={()=>setPage("planner")}>Mi plan</button>
           </nav>
         </header>
         <main>
           {page==="home" && <HomePage setPage={setPage}/>}
-          {page==="analyzer" && <FoodAnalyzer onBack={()=>setPage("home")}/>}
+          {page==="analyzer" && <FoodAnalyzer onBack={()=>setPage("home")} onMealSaved={()=>setHistoryRefresh(r=>r+1)}/>}
+          {page==="history" && <HistoryPage onBack={()=>setPage("home")} refreshKey={historyRefresh}/>}
           {page==="planner" && <DietPlanner onBack={()=>setPage("home")}/>}
         </main>
       </div>
